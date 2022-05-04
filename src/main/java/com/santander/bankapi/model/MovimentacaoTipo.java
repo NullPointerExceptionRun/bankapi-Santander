@@ -1,6 +1,6 @@
 package com.santander.bankapi.model;
 
-public class MovimentacaoTipo {
-
-
+public enum MovimentacaoTipo {
+	RECEITA,
+	DESPESA
 }

@@ -2,12 +2,30 @@ package com.santander.bankapi.model;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+
+@Entity
+@Table(name = "table_movimentacao")
 public class Movimentacao {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private LocalDateTime datehora;
+	
+	@Column(name = "data_hora")
+	private LocalDateTime datahora;
 	private String descricao;
 	private Double valor;
+	
+	@Enumerated(EnumType.STRING)
 	private MovimentacaoTipo tipo;
 	
 	
@@ -18,10 +36,10 @@ public class Movimentacao {
 		this.id = id;
 	}
 	public LocalDateTime getDatehora() {
-		return datehora;
+		return datahora;
 	}
 	public void setDatehora(LocalDateTime datehora) {
-		this.datehora = datehora;
+		this.datahora = datehora;
 	}
 	public String getDescricao() {
 		return descricao;
