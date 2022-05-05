@@ -14,19 +14,22 @@ import com.santander.bankapi.repository.MovimentacaoRepository;
 
 @Service
 public class MovimentacaoService {
+	@Autowired
+	private MovimentacaoRepository repository;
 	
 	@Autowired
 	private CorrentistaRepository correntistaRepository;
-	private MovimentacaoRepository repository;
 	public void save(NovaMovimentacao novaMovimentacao) {
 		Movimentacao movimentacao = new Movimentacao();
 
-		Double valor = novaMovimentacao.getTipo() == MovimentacaoTipo.RECEITA ? novaMovimentacao.getValor() : novaMovimentacao.getValor() * -1;
+		Double valor = novaMovimentacao.getValor();
+		if(novaMovimentacao.getTipo() == MovimentacaoTipo.DESPESA)
+				valor = valor * -1;
+		
 		movimentacao.setDatehora(LocalDateTime.now());
 		movimentacao.setDescricao(novaMovimentacao.getDescricao());
 		movimentacao.setIdConta(novaMovimentacao.getIdConta());
 		movimentacao.setTipo(novaMovimentacao.getTipo());
-		movimentacao.setValor(novaMovimentacao.getValor());
 		movimentacao.setValor(valor);
 		
 		Correntista correntista = correntistaRepository.findById(novaMovimentacao.getIdConta()).orElse(null); // se o ID for encontrado pelo id 200, caso contrario NUll
